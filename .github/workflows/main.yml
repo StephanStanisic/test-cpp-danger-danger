@@ -27,7 +27,8 @@ jobs:
       - name: Danger
         run: yarn danger ci --dangerfile .github/dangerfile.js
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ github.ref_name }}
       - uses: linuxdeepin/action-cppcheck@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
