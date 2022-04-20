@@ -10,6 +10,7 @@ if(!allowed_branches.includes(branch_parts[0]))
 // Check if docs are updated
 let modified_files = [...danger.git.modified_files, ...danger.git.created_files];
 let modified_docs = modified_files.filter(file => file.startsWith("docs/"));
-console.log(modified_files, modified_docs);
+if(modified_docs.length == 0)
+	warn("It looks like the docs aren't updated, are you sure you're not missing something?");
 
 message(`Eyo ${process.env.BRANCH}`)

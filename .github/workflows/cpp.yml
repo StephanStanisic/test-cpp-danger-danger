@@ -1,0 +1,18 @@
+name: C++
+
+on: [pull_request, commit]
+
+jobs:
+  cppcheck:
+    name: C++ Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: linuxdeepin/action-cppcheck@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          pull_request_id: ${{ github.event.pull_request.number }}
