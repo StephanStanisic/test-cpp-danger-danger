@@ -1,6 +1,6 @@
 name: C++
 
-on: [pull_request, commit]
+on: [pull_request, push]
 
 jobs:
   cppcheck:
