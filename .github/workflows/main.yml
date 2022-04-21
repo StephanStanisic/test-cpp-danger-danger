@@ -1,35 +1,32 @@
-name: CI
+name: Danger
 
-# Run this workflow every time a new commit pushed to your repository
-on: pull_request
+on: 
+  pull_request:
+    types:
+      [opened, synchronize, reopened, edited]
 
 jobs:
-  # Set the job key. The key is displayed as the job name
-  # when a job name is not provided
-  build:
-    # Name the Job
+  danger:
     name: Danger
-    # Set the type of machine to run on
     runs-on: ubuntu-latest
 
     steps:
-      # Checks out a copy of your repository on the ubuntu-latest machine
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Use Node.js 10.x
         uses: actions/setup-node@v1
         with:
             node-version: 10.x
+
       - name: Install dependencies
         run: |
             npm install -g yarn
             yarn add danger --dev
+
       - name: Danger
         run: yarn danger ci --dangerfile .github/dangerfile.js
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: linuxdeepin/action-cppcheck@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          pull_request_id: ${{ github.event.pull_request.number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ github.ref_name }}
+
