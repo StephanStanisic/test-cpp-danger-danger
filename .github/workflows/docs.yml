@@ -11,10 +11,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - uses: nikeee/setup-pandoc@v1
+
       - name: Build
         run: |
           sudo apt update
-          sudo apt install pandoc texlive-full -y
+          sudo apt install texlive-full -y
           ./docs/.tools/build.sh
 
       - name: Upload
