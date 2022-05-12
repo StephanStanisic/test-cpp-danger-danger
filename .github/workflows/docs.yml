@@ -13,8 +13,8 @@ jobs:
 
       - name: Build
         run: |
-          apt update
-          apt install pandoc texlive-full -y
+          sudo apt update
+          sudo apt install pandoc texlive-full -y
           ./docs/.tools/build.sh
 
       - name: Upload
