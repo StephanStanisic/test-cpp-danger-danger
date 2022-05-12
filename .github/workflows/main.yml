@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
             npm install -g yarn
-            yarn add danger --dev
+            yarn add danger languagedetect --dev
 
       - name: Danger
         run: yarn danger ci --dangerfile .github/dangerfile.js

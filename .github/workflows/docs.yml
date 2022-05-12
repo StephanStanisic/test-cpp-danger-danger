@@ -1,0 +1,32 @@
+name: Docs
+
+on: push
+
+jobs:
+  docs:
+    name: Docs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: nikeee/setup-pandoc@v1
+
+      - name: Build
+        run: |
+          sudo apt update
+          sudo apt install texlive-full -y
+          ./docs/.tools/build.sh
+
+      - name: Upload
+        uses: nogsantos/scp-deploy@master
+        with:
+          src: ./docs
+          host: ${{ secrets.SSH_HOST }}
+          remote: ${{ secrets.SSH_DIR }}
+          port: ${{ secrets.SSH_PORT }}
+          user: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+
+
